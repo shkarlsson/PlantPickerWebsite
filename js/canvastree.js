@@ -1,24 +1,22 @@
 function drawBranches(canvasId, typeOfPlant, startX, startY, trunkWidth, level) {
 	level += 1
     canvas = document.getElementById(canvasId);
-	context = canvas.getContext('2d');
-	console.log(typeOfPlant)
+    context = canvas.getContext('2d');
     //console.log(typeOfPlant)
-    if(level < 10) {
-    	if((level < 3 && typeOfPlant == 'Shrubs')||typeOfPlant=='Ornamental Grasses') {
-			console.log('adding low branch for level '+ level)
+    if(level < 13) {
+    	if(level == 1 && typeOfPlant == 'Shrubs') {
     		drawBranches(canvasId, typeOfPlant, startX, startY, trunkWidth * 0.7, level);
 			drawBranches(canvasId, typeOfPlant, startX, startY, trunkWidth * 0.7, level);
-    	}
+		}
     	else {
-			var changeX = (canvas.height / 4) / (level);
-			var changeY = (canvas.height / 3) / (level);
+			var maxChangeX = canvas.height / 4 / level;
+			var maxChangeY = canvas.height / 3 / level;
 
-			var topRightX = startX + Math.random() * changeX;
-			var topRightY = startY - Math.random() * changeY;
+			var topRightX = startX + Math.random() * maxChangeX;
+			var topRightY = startY - Math.random() * maxChangeY;
 
-			var topLeftX = startX - Math.random() * changeX;
-			var topLeftY = startY - Math.random() * changeY;
+			var topLeftX = startX - Math.random() * maxChangeX;
+			var topLeftY = startY - Math.random() * maxChangeY;
 
 			// draw right branch
 			context.beginPath();

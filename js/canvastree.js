@@ -1,8 +1,14 @@
+function randRange(min, max) {
+    return Math.random() * (max - min) + min;
+}
+
 function drawBranches(canvasId, typeOfPlant, startX, startY, trunkWidth, level) {
 	level += 1
     canvas = document.getElementById(canvasId);
     context = canvas.getContext('2d');
-    console.log(typeOfPlant)
+	console.log(typeOfPlant)
+	var rr = [0,1]
+
     if(level < 13) {
 		if(level == 1 && typeOfPlant == 'Shrubs') {
 			var maxChangeX = 0
@@ -17,17 +23,18 @@ function drawBranches(canvasId, typeOfPlant, startX, startY, trunkWidth, level) 
 			console.log('tree')
 			var maxChangeX = 0;
 			var maxChangeY = canvas.height / 3 / level;
+			rr[0] = 0.8
 		}
 		else{
 			var maxChangeX = canvas.height / 4 / level;
 			var maxChangeY = canvas.height / 3 / level;
 		}
 
-		var topRightX = startX + Math.random() * maxChangeX;
-		var topRightY = startY - Math.random() * maxChangeY;
+		var topRightX = startX + randRange(rr[0],rr[1]) * maxChangeX;
+		var topRightY = startY - randRange(rr[0],rr[1]) * maxChangeY;
 
-		var topLeftX = startX - Math.random() * maxChangeX;
-		var topLeftY = startY - Math.random() * maxChangeY;
+		var topLeftX = startX - randRange(rr[0],rr[1]) * maxChangeX;
+		var topLeftY = startY - randRange(rr[0],rr[1]) * maxChangeY;
 
 		// draw right branch
 		context.beginPath();

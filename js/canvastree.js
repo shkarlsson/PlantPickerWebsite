@@ -13,6 +13,11 @@ function drawBranches(canvasId, typeOfPlant, startX, startY, trunkWidth, level) 
 			var maxChangeX = canvas.height / 2 / level;
 			var maxChangeY = 0
 		}
+		else if(level == 1 && typeOfPlant == 'Trees') {
+			console.log('tree')
+			var maxChangeX = 0;
+			var maxChangeY = canvas.height / 3 / level;
+		}
 		else{
 			var maxChangeX = canvas.height / 4 / level;
 			var maxChangeY = canvas.height / 3 / level;

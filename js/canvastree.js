@@ -4,13 +4,19 @@ function drawBranches(canvasId, typeOfPlant, startX, startY, trunkWidth, level) 
     context = canvas.getContext('2d');
     //console.log(typeOfPlant)
     if(level < 13) {
-    	if(level == 1 && typeOfPlant == 'Shrubs') {
+    	/*if(level == 1 && typeOfPlant == 'Shrubs') {
     		drawBranches(canvasId, typeOfPlant, startX, startY, trunkWidth * 0.7, level);
 			drawBranches(canvasId, typeOfPlant, startX, startY, trunkWidth * 0.7, level);
-		}
+		}*/
     	else {
-			var maxChangeX = canvas.height / 4 / level;
-			var maxChangeY = canvas.height / 3 / level;
+			if(level == 1 && typeOfPlant == 'Shrubs') {
+				var maxChangeX = 0
+				var maxChangeY = 0
+			}
+			else{
+				var maxChangeX = canvas.height / 4 / level;
+				var maxChangeY = canvas.height / 3 / level;
+			}
 
 			var topRightX = startX + Math.random() * maxChangeX;
 			var topRightY = startY - Math.random() * maxChangeY;

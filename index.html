@@ -1,0 +1,265 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+	<head>
+		
+		<title>PlantSelectr</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<link rel="icon" type="image/png" href="images/favicon.ico">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta charset="UTF-8">
+		<meta name="description" content="A tool for landscape architects, urban planners, and other professionals to pick the right type of plants for any setting. It helps you isolate the trees, shrubs, flowers, etc. that are viable options for your project's or garden's setting.">
+		<meta name="keywords" content="Landscape Architecture, Tool, Horticulture, Gardening, Plants">
+		<meta name="author" content="Henrik Karlsson">
+		<meta property="og:image" content="images/square-logo.jpg"/>
+		<!--<meta property="og:image:secure_url" content="https://secure.example.com/ogp.jpg" />-->
+		<link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,300,800,700,400italic|PT+Serif:400,400italic"/>
+		
+		<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+		<script type="text/javascript" src="js/jquery.activity-indicator-1.0.0.js"></script>
+		<script type="text/javascript" src="js/isotope.pkgd.min.js"></script>
+		<link rel="stylesheet" href="fancybox/jquery.fancybox.css" type="text/css" media="screen" />
+		<script type="text/javascript" src="fancybox/jquery.fancybox.js"></script>
+		<script type="text/javascript" src="js/canvastree.js"></script>
+		<script type="text/javascript" src="jquery-share/jquery.share.js"></script>
+		<link rel="stylesheet" href="jquery-share/jquery.share.css" type="text/css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="css/style.css"/>
+		<script type="text/javascript" src="clickmap/js/clickmap.js"></script>
+		<link rel="stylesheet" href="clickmap/style.css" type="text/css" media="screen" />
+		
+		<!--<script type="text/javascript" src="js/jquery.easytabs.min.js"></script>
+		<script type="text/javascript" src="js/respond.min.js"></script>
+		<script type="text/javascript" src="js/jquery.adipoli.min.js"></script>
+		<script type="text/javascript" src="js/jquery.fancybox-1.3.4.pack.js"></script>-->
+		<script>
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+			ga('create', 'UA-18005327-13', 'auto');
+			ga('require', 'displayfeatures');
+			ga('require', 'linkid', 'linkid.js');
+			ga('send', 'pageview');
+		</script>
+		<!--<script type="text/javascript">
+		$(function() {
+		$(document).saveClicks();
+		
+		$('.displayClicks').click(function() {
+		$.displayClicks();
+		$('#clickmap-overlay').click(function() {
+		$.removeClicks();
+		$(document).saveClicks();
+		});
+		$(document).stopSaveClicks();
+		return false;
+		});
+		});
+		</script>-->
+		
+	</head>
+	<body>
+		<div id="loading-overlay">
+			<h3 class="text-center text-bottom">Loading lots of plants...</h3>
+		</div>
+		<nav class="navbar navbar-default" role="navigation">
+			<div id="share-box"></div>
+			<div id="filters" class="">
+				<!-- Filters and other stuff to add:
+				Lägg till fler common names så att man kan (1) få fler termsökresultat, (2) så att fler bilder kan hittas från wikipedia
+				Ändra bakgrund för placeholders
+				Ändra bild för placeholders till att bättre spegla vad de är för något
+				Kolla om inte query continuation är en redirect och borde följas, som i fallet: Hyacinthbean
+				Lägg till möjlighet för användare att lägga in data. Speciellt för sådant som inte redan finns i databasen.
+				Lägg till ikoner: Growth Speed (hare och sköldpadda), Deciduous (de två träden)
+				metric alternative
+				Intended use (canopy tree, ornamental tree, fruit tree, screening tree, etc) (multiple categories: ok)
+				Water availability in the ground (http://www.skogforsk.se/sv/KunskapDirekt/Alla-Verktyg/Var-passar-tradet---naring-och-vatten/)
+				Native vs non-native
+				Neighbor-trees - så man kan browsa liknande träd
+				More imagery (scrape from google image search?)
+				See if tree is available nearby (plantant.com)
+				-->
+				<img id="logo" alt="PlantSelctr" src="images/logo.png"><br>
+				<div class="filter-box form-inline">
+					<span class="filter-title">Plant Height at Maturity</span><div class="glyphicon glyphicon-info-sign pull-right"><span class="info-bubble">Pretty self explanatory. Mature heights can vary a lot within a species, so this is just an estimate.</span><span class="info-funnel"></span></div><br>
+					<div class="input-group" data-filter-group="taller-than">
+						<span class="input-group-addon">Min</span>
+						<input type="number" min="0" max="250" class="form-control taller-than" data-filter="tallerThan">
+						<span class="input-group-addon">ft</span>
+					</div>
+					<div class="input-group" data-filter-group="shorter-than">
+						<span class="input-group-addon">Max</span>
+						<input type="number" min="0" max="250" class="form-control shorter-than" data-filter="shorterThan">
+						<span class="input-group-addon">ft</span>
+					</div>
+				</div>
+				<div class="filter-box form-inline">
+					<span class="filter-title">Hardiness Zone</span><div class="glyphicon glyphicon-info-sign pull-right"><span class="info-bubble">Minimum temperatures are as defined in <a class="link" href="http://en.wikipedia.org/wiki/Hardiness_zone" target="_blank">Wikipedias article on Hardiness Zones</a>. Doesn't take into accound max temperatures.</span><span class="info-funnel"></span></div><br>
+					<div class="input-group" data-filter-group="hardiness-zone">
+						<input type="number" min="0" max="12" class="form-control hardiness-zone" data-filter="hardinessZone">
+						<span class="input-group-addon">(a &amp; b)</span>
+					</div>
+				</div>
+				<div class="filter-box form-inline">
+					<span class="filter-title">Soil Acidity/Alkalinity</span><div class="glyphicon glyphicon-info-sign pull-right"><span class="info-bubble">This filters out plants not found in areas with lower, and higher pH-levels than selected.</span><span class="info-funnel"></span></div><br>
+					<div class="input-group" data-filter-group="ph-value">
+						<span class="input-group-addon">&nbsp;pH:&nbsp;</span>
+						<input type="number" min="1" max="11" step="0.1" class="form-control ph-value" data-filter="phValue">
+					</div>
+				</div>
+				<div class="filter-box">
+					<span class="filter-title">Type of Plant</span><div class="glyphicon glyphicon-info-sign pull-right"><span class="info-bubble">Unfortunately this data is a bit patchy and therefore doesn't cover all of the plants. <a class="fancybox fancybox.iframe" href="http://goo.gl/forms/yL0KY2P97n" target="_blank">Database additions are always welcome!</a> Plants that this data does not cover are assumed to belong to no group. </span><span class="info-funnel"></span></div><br>
+					<div class="btn-group js-radio-button-group" data-filter-group="type-of-plant">
+						
+						
+						<button class="btn btn-default" data-filter=".type-trees">Tree</button>
+						<button class="btn btn-default" data-filter=".type-shrubs">Shrub</button>
+						<button class="btn btn-default" data-filter=".type-vines">Vine</button>
+						<!-- Får inga markeringar på ferns. För mycket mismatch mellan de båda databaserna. <button class="btn btn-default" data-filter=".type-ferns">Fern</button>
+						<button class="btn btn-default" data-filter=".type-bulbs">Bulb</button>-->
+						<button class="btn btn-default" data-filter=".type-groundcovers">Groundcover</button>
+						<button class="btn btn-default" data-filter=".type-ornamental-grasses">Ornamental grass</button>
+						<button class="btn btn-default" data-filter=".type-perennials">Perennial</button>
+						<!--<button class="btn btn-default" data-filter=".type-biennials">Biennial</button>-->
+						<button class="btn btn-default" data-filter=".type-annuals">Annual</button>
+						
+					</div>
+				</div>
+				<div class="filter-box">
+					<span class="filter-title">Soil Texture</span><div class="glyphicon glyphicon-info-sign pull-right"><span class="info-bubble">On the <a class="fancybox fancybox.iframe" rel="group" href="http://en.wikipedia.org/wiki/Soil_texture?printable=yes">Soil Texture Triangle</a>, coarse corresponds to sand, loamy sand and sandy loam (left); fine corresponds to the top clay, sandy clad and sily clay (top); and medium corresponds to the rest.</span><span class="info-funnel"></span></div><br>
+					<div class="btn-group js-radio-button-group" data-filter-group="soil-texture">
+						<button class="btn btn-default" data-filter=".soil-texture-coarse">Coarse</button>
+						<button class="btn btn-default" data-filter=".soil-texture-medium">Medium</button>
+						<button class="btn btn-default" data-filter=".soil-texture-fine">Fine</button>
+					</div>
+				</div>
+				<div class="filter-box">
+					<span class="filter-title">Soil Salinity</span><div class="glyphicon glyphicon-info-sign pull-right"><span class="info-bubble">This will filter plants that experience more than a 10 % growth loss in soils with an electrical conductivity of 0-2 dS/m, 2-4 dS/m, 4-8 dS/m and greater than 8, respectively.</span><span class="info-funnel"></div><br>
+					<div class="btn-group js-radio-button-group" data-filter-group="soil-salinity">
+						<button class="btn btn-default" data-filter=".salinity-tolerance-0">None</button>
+						<button class="btn btn-default" data-filter=".salinity-tolerance-1">Low</button>
+						<button class="btn btn-default" data-filter=".salinity-tolerance-2">Medium</button>
+						<button class="btn btn-default" data-filter=".salinity-tolerance-3">High</button>
+					</div>
+				</div>
+				<div class="filter-box">
+					<span class="filter-title">Soil Calcium Carbonate</span><div class="glyphicon glyphicon-info-sign pull-right"><span class="info-bubble">This will filter plants' tolerances to soils containing 10 - 1000g/kg CaCO&#8323;.</span><span class="info-funnel"></span></div><br>
+					<div class="btn-group js-radio-button-group" data-filter-group="soil-calcium">
+						<button class="btn btn-default" data-filter=".calcium-tolerance-0">None</button>
+						<button class="btn btn-default" data-filter=".calcium-tolerance-1">Low</button>
+						<button class="btn btn-default" data-filter=".calcium-tolerance-2">Medium</button>
+						<button class="btn btn-default" data-filter=".calcium-tolerance-3">High</button>
+					</div>
+				</div>
+				<div class="filter-box">
+					<span class="filter-title">Drought Tolerance&ast;</span><div class="glyphicon glyphicon-info-sign pull-right"><span class="info-bubble">* Drought tolerance, relative to other plants of same geographical area.</span><span class="info-funnel"></span></div><br>
+					<div class="btn-group js-radio-button-group" data-filter-group="drought-tolerance">
+						<button class="btn btn-default" data-filter=".drought-tolerance-0">None</button>
+						<button class="btn btn-default" data-filter=".drought-tolerance-1">Low</button>
+						<button class="btn btn-default" data-filter=".drought-tolerance-2">Medium</button>
+						<button class="btn btn-default" data-filter=".drought-tolerance-3">High</button>
+					</div>
+				</div>
+				<div class="filter-box">
+					<span class="filter-title">Shade Tolerance</span><div class="glyphicon glyphicon-info-sign pull-right"><span class="info-bubble">This will filter out any plant that has tolerance for less than the chosen amount of shade.</span><span class="info-funnel"></span></div><br>
+					<div class="btn-group js-radio-button-group" data-filter-group="shade-tolerance">
+						<button class="btn btn-default" data-filter=".shade-tolerance-0">None</button>
+						<button class="btn btn-default" data-filter=".shade-tolerance-1">Low</button>
+						<button class="btn btn-default" data-filter=".shade-tolerance-2">Medium</button>
+						<button class="btn btn-default" data-filter=".shade-tolerance-3">High</button>
+					</div>
+				</div>
+				<div class="filter-box">
+					<span class="filter-title">Leaf Retention</span><div class="glyphicon glyphicon-info-sign pull-right"><span class="info-bubble">This will filter out plants based on whether they do or don't lose their leaves seasonally. Deciduous do, evergreens don't.</span><span class="info-funnel"></span></div><br>
+					<div class="btn-group js-radio-button-group" data-filter-group="leaf-retention">
+						<button class="btn btn-default" data-filter=".evergreen">
+						<span class="glyphicon glyphicon-tree-conifer"></span> Yes
+						</button>
+						<button class="btn btn-default" data-filter=".deciduous">
+						<span class="glyphicon glyphicon-tree-deciduous"></span> No
+						</button>
+					</div>
+				</div>
+				<div class="filter-box">
+					<span class="filter-title">Fruit or Flower Color</span><div class="glyphicon glyphicon-info-sign pull-right"><span class="info-bubble">This will filter out any plant that doesn't have conspicuous fruits or flowers of the chosen color.</span><span class="info-funnel"></span></div><br>
+					<div class="btn-group js-radio-button-group" data-filter-group="fruiwer-color">
+						<button class="btn btn-default" data-filter=".red-fruiwers"><span class="red circle"></span></button>
+						<button class="btn btn-default" data-filter=".orange-fruiwers"><span class="orange circle"></span></button>
+						<button class="btn btn-default" data-filter=".yellow-fruiwers"><span class="yellow circle"></span></button>
+						<button class="btn btn-default" data-filter=".green-fruiwers"><span class="green circle"></span></button>
+						<button class="btn btn-default" data-filter=".blue-fruiwers"><span class="blue circle"></span></button>
+						<button class="btn btn-default" data-filter=".purple-fruiwers"><span class="purple circle"></span></button>
+						<button class="btn btn-default" data-filter=".white-fruiwers"><span class="white circle"></span></button>
+						<button class="btn btn-default" data-filter=".brown-fruiwers"><span class="brown circle"></span></button>
+						<button class="btn btn-default" data-filter=".any-fruiwers">Any</button>
+					</div>
+				</div>
+				<div class="filter-box">
+					<span class="filter-title">Edible</span><div class="glyphicon glyphicon-info-sign pull-right"><span class="info-bubble">A plant is considered edible if its fruits, flowers or leaves can be consumed, processed or unprocessed.</span><span class="info-funnel"></span></div><br>
+					<div class="btn-group js-radio-button-group" data-filter-group="edible-parts">
+						<button class="btn btn-default" data-filter=".edible">Yes</button>
+						<button class="btn btn-default" data-filter=".unedible">No</button>
+					</div>
+				</div>
+				<div class="filter-box">
+					<span class="filter-title">Deer Resistance</span><div class="glyphicon glyphicon-info-sign pull-right"><span class="info-bubble">Plants with good Deer Resistance rarely suffer from damage due to deers, medium seldom get severely damaged, poor occasionally get severely damaged, and plants with no resistance frequently get severely damaged from deer. Unfortunately this data is a bit patchy and therefore doesn't cover all of the plants. Plants that it doesn't cover are assumed to have no deer resistance.</span><span class="info-funnel"></span></div><br>
+					<div class="btn-group js-radio-button-group" data-filter-group="deer-tolerance">
+						<button class="btn btn-default" data-filter=".deer-tolerance-1">Poor</button>
+						<button class="btn btn-default" data-filter=".deer-tolerance-2">Medium</button>
+						<button class="btn btn-default" data-filter=".deer-tolerance-3">Good</button>
+					</div>
+				</div>
+				<div class="filter-box">
+					<span class="filter-title">Commercial Availability</span><div class="glyphicon glyphicon-info-sign pull-right"><span class="info-bubble">Based on general commercial avaiability in the United States. With some more work, this will hopefully change to be based on ones location and actual commercial availability.</span><span class="info-funnel"></span></div><br>
+					<div class="btn-group js-radio-button-group" data-filter-group="commercial-availability">
+						<button class="btn btn-default" data-filter=".commercial-availability-0">None</button>
+						<button class="btn btn-default" data-filter=".commercial-availability-1">Low</button>
+						<button class="btn btn-default" data-filter=".commercial-availability-2">Medium</button>
+						<button class="btn btn-default" data-filter=".commercial-availability-3">High</button>
+					</div>
+				</div>
+				<div class="filter-box form-inline">
+					<span class="filter-title">Filter by Name</span><div class="glyphicon glyphicon-info-sign pull-right"><span class="info-bubble">Pretty self explanatory. Many plants have more than one common name, but this database only contains one for each plant. Updates will be made here shortly, and <a class="fancybox fancybox.iframe" href="http://goo.gl/forms/yL0KY2P97n" target="_blank">contributions</a> are highly appreciated.</span><span class="info-funnel"></span></div><br>
+					<div class="input-group" data-filter-group="name-filter">
+						<span class="input-group-addon">Scientific or Common:</span>
+						<input type="text" class="form-control name-filter" data-filter="nameFilter">
+					</div>
+				</div>
+			</div>
+		</nav>
+		<div class="centerer">
+			<div id="tree-list" class="isotope">
+			</div>
+			<div id="no-more-trees"><h3 class="text-center">Sorry, can't find any more plants. Please consider <a class="fancybox fancybox.iframe" href="http://goo.gl/forms/yL0KY2P97n" target="_blank">adding some</a> to the database.</h3></div>
+		</div>
+		<div style="width:100%;height:200px"
+			<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+			<!-- Plantselectr Responsive Bottom -->
+			<ins class="adsbygoogle"
+			style="display:block"
+			data-ad-client="ca-pub-6770018583851435"
+			data-ad-slot="2312931186"
+			data-ad-format="auto">
+			</ins>
+			<script>
+			(adsbygoogle = window.adsbygoogle || []).push({});
+			</script>
+			<!--<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+			<ins class="adsbygoogle"
+			style="display:inline-block;width:728px;height:90px"
+			data-ad-client="ca-pub-6770018583851435"
+			data-ad-slot="5964401589"></ins>
+			<script>
+			(adsbygoogle = window.adsbygoogle || []).push({});
+			</script>
+			-->
+		</div>
+		<div class="footer">
+			<div class="copyright">Copyright &copy; 2015 <a class="link" href="http://karlssonprojects.com" target="_blank">Henrik Karlsson</a></div>
+		</div>
+		<script src="bootstrap/js/bootstrap.js"></script>
+		<script type="text/javascript" src="js/script.js"></script>
+	</body>
+</html>

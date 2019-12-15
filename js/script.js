@@ -108,12 +108,12 @@ function initIsotope() {
 			// arrange, and use filter fn
 			$(this).siblings('.btn').removeClass('is-checked active').blur()
 			if (!$(this).hasClass('is-checked active')) {
-				filters[filterGroup] = currentFilter; //Lägger till så att isotope vet vad som ska filtreras 
+				filters[filterGroup] = currentFilter; //Lägger till så att isotope vet vad som ska filtreras
 				$(this).addClass('is-checked active')
 			} else {
 				if ($(this).hasClass('btn')) { //Annars funkar inte fyll i -fälten som de ska. De avselectas annars med blur().
 					$(this).removeClass('is-checked active').blur()
-					delete filters[filterGroup] //Tar bort så att isotope vet vad som ska filtreras 
+					delete filters[filterGroup] //Tar bort så att isotope vet vad som ska filtreras
 				}
 			}
 
@@ -397,7 +397,7 @@ function initialPopulationWithTrees() {
 	initIsotope()
 		/*for (var i = 0; i < 1/**parseInt(Object.keys(allTrees).length - 1)**/
 		/*; i++) {
-		    
+
 		  }*/
 	addTree(getSuitableTree())
 	setTimeout(function() {
@@ -428,7 +428,7 @@ function getTreeData() {
 	$.ajax({
 		'async': true, //Ändrade från false för att jag fick ett trökigt felmeddelande. Men allt funkade! - 2014-08-28
 		'global': true,
-		'url': "json/trees.json",
+		'url': "js/trees.json",
 		'dataType': "json",
 		'success': function(data) {
 			$('.navbar, .centerer').show()

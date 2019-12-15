@@ -5,7 +5,8 @@ function drawBranches(canvasId, typeOfPlant, startX, startY, trunkWidth, level) 
 	console.log(typeOfPlant)
     //console.log(typeOfPlant)
     if(level < 10) {
-    	if(level == 1 && typeOfPlant == 'Shrubs') {
+    	if((level < 3 && typeOfPlant == 'Shrubs')||typeOfPlant=='Ornamental Grasses') {
+			console.log('adding low branch for level '+ level)
     		drawBranches(canvasId, typeOfPlant, startX, startY, trunkWidth * 0.7, level);
 			drawBranches(canvasId, typeOfPlant, startX, startY, trunkWidth * 0.7, level);
     	}

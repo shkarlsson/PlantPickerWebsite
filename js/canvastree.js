@@ -8,41 +8,40 @@ function drawBranches(canvasId, typeOfPlant, startX, startY, trunkWidth, level) 
     		drawBranches(canvasId, typeOfPlant, startX, startY, trunkWidth * 0.7, level);
 			drawBranches(canvasId, typeOfPlant, startX, startY, trunkWidth * 0.7, level);
 		}*/
-    	else {
-			if(level == 1 && typeOfPlant == 'Shrubs') {
-				var maxChangeX = 0
-				var maxChangeY = 0
-			}
-			else{
-				var maxChangeX = canvas.height / 4 / level;
-				var maxChangeY = canvas.height / 3 / level;
-			}
+		if(level == 1 && typeOfPlant == 'Shrubs') {
+			var maxChangeX = 0
+			var maxChangeY = 0
+		}
+		else{
+			var maxChangeX = canvas.height / 4 / level;
+			var maxChangeY = canvas.height / 3 / level;
+		}
 
-			var topRightX = startX + Math.random() * maxChangeX;
-			var topRightY = startY - Math.random() * maxChangeY;
+		var topRightX = startX + Math.random() * maxChangeX;
+		var topRightY = startY - Math.random() * maxChangeY;
 
-			var topLeftX = startX - Math.random() * maxChangeX;
-			var topLeftY = startY - Math.random() * maxChangeY;
+		var topLeftX = startX - Math.random() * maxChangeX;
+		var topLeftY = startY - Math.random() * maxChangeY;
 
-			// draw right branch
-			context.beginPath();
-			context.moveTo(startX + trunkWidth / 4, startY);
-			context.quadraticCurveTo(startX + trunkWidth / 4, startY - trunkWidth, topRightX, topRightY);
-			context.lineWidth = trunkWidth;
-			context.lineCap = 'round';
-			context.stroke();
+		// draw right branch
+		context.beginPath();
+		context.moveTo(startX + trunkWidth / 4, startY);
+		context.quadraticCurveTo(startX + trunkWidth / 4, startY - trunkWidth, topRightX, topRightY);
+		context.lineWidth = trunkWidth;
+		context.lineCap = 'round';
+		context.stroke();
 
-			// draw left branch
-			context.beginPath();
-			context.moveTo(startX - trunkWidth / 4, startY);
-			context.quadraticCurveTo(startX - trunkWidth / 4, startY - trunkWidth, topLeftX, topLeftY);
-			context.lineWidth = trunkWidth;
-			context.lineCap = 'round';
-			context.stroke();
+		// draw left branch
+		context.beginPath();
+		context.moveTo(startX - trunkWidth / 4, startY);
+		context.quadraticCurveTo(startX - trunkWidth / 4, startY - trunkWidth, topLeftX, topLeftY);
+		context.lineWidth = trunkWidth;
+		context.lineCap = 'round';
+		context.stroke();
 
-			drawBranches(canvasId, typeOfPlant, topRightX, topRightY, trunkWidth * 0.7, level);
-			drawBranches(canvasId, typeOfPlant, topLeftX, topLeftY, trunkWidth * 0.7, level);
-			}
+		drawBranches(canvasId, typeOfPlant, topRightX, topRightY, trunkWidth * 0.7, level);
+		drawBranches(canvasId, typeOfPlant, topLeftX, topLeftY, trunkWidth * 0.7, level);
+		}
     }
 }
 

@@ -1,1 +1,1 @@
-# PlantSelectr
+# PlantPicker

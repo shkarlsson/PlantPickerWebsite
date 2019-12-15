@@ -12,8 +12,8 @@ function drawBranches(canvasId, typeOfPlant, startX, startY, trunkWidth, level) 
 			var maxChangeX = 0
 			var maxChangeY = 0
 		}
-		else if((level < 5 && typeOfPlant == 'Ornamental Grasses') || (level < 7 && typeOfPlant == 'Groundcover')) {
-			var maxChangeX = canvas.height / 3 / level;
+		else if((level < 8 && typeOfPlant == 'Ornamental Grasses') || (level < 10 && typeOfPlant == 'Groundcovers')) {
+			var maxChangeX = canvas.height / 2 / level;
 			var maxChangeY = 0
 		}
 		else{

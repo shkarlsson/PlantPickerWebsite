@@ -2,7 +2,7 @@ function drawBranches(canvasId, typeOfPlant, startX, startY, trunkWidth, level) 
 	level += 1
     canvas = document.getElementById(canvasId);
     context = canvas.getContext('2d');
-    //console.log(typeOfPlant)
+    console.log(typeOfPlant)
     if(level < 13) {
     	/*if(level == 1 && typeOfPlant == 'Shrubs') {
     		drawBranches(canvasId, typeOfPlant, startX, startY, trunkWidth * 0.7, level);

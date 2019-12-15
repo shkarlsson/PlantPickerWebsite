@@ -41,7 +41,6 @@ function drawBranches(canvasId, typeOfPlant, startX, startY, trunkWidth, level) 
 
 		drawBranches(canvasId, typeOfPlant, topRightX, topRightY, trunkWidth * 0.7, level);
 		drawBranches(canvasId, typeOfPlant, topLeftX, topLeftY, trunkWidth * 0.7, level);
-		}
     }
 }
 

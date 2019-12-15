@@ -288,7 +288,7 @@ function choseWhichImage(arr) {
 		return "No Image"
 	}
 	return 0 //Denna är oftast featured-bilden på wikipedia och är oftast typ bäst.
-	return (arr.length * Math.random()) | 0
+	//return (arr.length * Math.random()) | 0
 }
 
 function addTree(tree) {

@@ -7,7 +7,7 @@ function drawBranches(canvasId, typeOfPlant, startX, startY, trunkWidth, level) 
     canvas = document.getElementById(canvasId);
     context = canvas.getContext('2d');
 	console.log(typeOfPlant)
-	var rr = [0,1]
+	var rr = [.2,1]
 
     if(level < 13) {
 		if(level == 1 && typeOfPlant == 'Shrubs') {
@@ -15,12 +15,10 @@ function drawBranches(canvasId, typeOfPlant, startX, startY, trunkWidth, level) 
 			var maxChangeY = 0
 		}
 		else if((level < 8 && typeOfPlant == 'Ornamental Grasses') || (level < 10 && typeOfPlant == 'Groundcovers')) {
-			console.log('og or gc')
 			var maxChangeX = canvas.height / 2 / level;
 			var maxChangeY = 0
 		}
 		else if(level == 1 && typeOfPlant == 'Trees') {
-			console.log('tree')
 			var maxChangeX = 0;
 			var maxChangeY = canvas.height / 3 / level;
 			rr[0] = 0.8

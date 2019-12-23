@@ -366,7 +366,7 @@ function addTree(tree) {
 	}
 
 	var treeItem = $('<div id="' + tree.id + '" class="' + classes + '" tree-data-name="' + tree.scientificName.toLowerCase() + "/" + tree.commonName.toLowerCase() + '" tree-data-height="' + tree.height + '" tree-data-hz="' + tree.hz + '" tree-data-ph="' + tree.pH.min + '-' + tree.pH.max + '"></div>')
-	var wikiHref = $('<a class="fancybox fancybox.iframe" rel="group" href="http://en.m.wikipedia.org/wiki/' + tree.scientificName.replace(" ", "_") + '?printable=yes"></a>')
+	var wikiHref = $('<a class="fancybox fancybox.iframe" rel="group" href="https://en.m.wikipedia.org/wiki/' + tree.scientificName.replace(" ", "_") + '?printable=yes"></a>')
 
 	var modTools = $('<div class="mod-tools"></div>')
 	var okImg = $('<div class="glyphicon glyphicon-ok-circle"></div>').on('click', function() {
@@ -445,7 +445,7 @@ function getTreeData() {
 			$('#share-box').share({
 				networks: ['twitter', 'facebook'],
 				orientation: 'horizontal',
-				urlToShare: 'http://plantselectr.com',
+				urlToShare: 'https://plantpicker.netlify.com',
 				//affix: 'right bottom'
 			});
 			$('.footer').show()
